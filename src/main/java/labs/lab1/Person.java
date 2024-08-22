@@ -21,6 +21,14 @@ public class Person {
     @EqualsAndHashCode.Exclude
     private List<Flat> flats;
 
+    private Person(String firstName, String lastName, String PIN, LocalDate birthDate, String notes, List<Flat> flats) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.PIN = PIN;
+        this.birthDate = birthDate;
+        this.notes = notes;
+        this.flats = flats;
+    }
 
     @Override
     public String toString() {

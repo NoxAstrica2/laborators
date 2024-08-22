@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
 group 'org.example'
@@ -11,6 +12,8 @@ repositories {
 
 ext {
     jupiter = '5.8.1'
+    lombok = '1.18.34'
+    mockito = '5.12.0'
 }
 
 
@@ -23,9 +26,43 @@ dependencies {
     // https://mvnrepository.com/artifact/org.testng/testng
 //    testImplementation group: 'org.testng', name: 'testng', version: '7.5.1'
 
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+    compileOnly "org.projectlombok:lombok:$lombok"
+
+    compileOnly "org.projectlombok:lombok:$lombok"
+    annotationProcessor "org.projectlombok:lombok:$lombok"
+
+    testCompileOnly "org.projectlombok:lombok:$lombok"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombok"
+
+    // https://mvnrepository.com/artifact/org.mockito/mockito-core
+
+    testImplementation 'org.mockito:mockito-core:' + mockito
+    // https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter
+    testImplementation 'org.mockito:mockito-junit-jupiter:' + mockito
+
+
 }
 
 test {
     useJUnitPlatform()
 //    useTestNG()
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+//    reportsDirectory = layout.buildDirectory.dir('customJacocoReportDir')
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
 }
