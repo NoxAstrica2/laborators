@@ -11,6 +11,9 @@ repositories {
 
 ext {
     jupiter = '5.8.1'
+    lombok = '1.18.34'
+    mockito = '5.12.0'
+    jackson = '2.18.0'
 }
 
 
@@ -22,6 +25,22 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.testng/testng
 //    testImplementation group: 'org.testng', name: 'testng', version: '7.5.1'
+
+    // https://mvnrepository.com/artifact/org.projectlombok/lombok
+//    compileOnly "org.projectlombok:lombok:$lombok"
+
+    compileOnly "org.projectlombok:lombok:$lombok"
+    annotationProcessor "org.projectlombok:lombok:$lombok"
+
+    testCompileOnly "org.projectlombok:lombok:$lombok"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombok"
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:$jackson"
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
+    implementation "com.fasterxml.jackson.dataformat:jackson-dataformat-xml:$jackson"
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson"
 
 }
 
