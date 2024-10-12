@@ -11,6 +11,10 @@ repositories {
 
 ext {
     jupiter = '5.8.1'
+    lombok = '1.18.34'
+    jackson = "2.18.0"
+    hibernate_validator = '8.0.1.Final'
+    expressly = '5.0.0'
 }
 
 
@@ -20,8 +24,27 @@ dependencies {
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: "$jupiter"
 
-    // https://mvnrepository.com/artifact/org.testng/testng
-//    testImplementation group: 'org.testng', name: 'testng', version: '7.5.1'
+    compileOnly "org.projectlombok:lombok:$lombok"
+    annotationProcessor "org.projectlombok:lombok:$lombok"
+
+    testCompileOnly "org.projectlombok:lombok:$lombok"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombok"
+
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation "com.fasterxml.jackson.core:jackson-databind:$jackson"
+
+    // https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator
+    implementation "org.hibernate.validator:hibernate-validator:$hibernate_validator"
+
+    implementation "org.glassfish.expressly:expressly:$expressly"
+
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation 'org.postgresql:postgresql:42.7.4'
+
+    // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync
+    implementation 'org.mongodb:mongodb-driver-sync:5.2.0'
+
+
 
 }
 
