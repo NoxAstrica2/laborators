@@ -1,4 +1,4 @@
-package labs.lab4;
+package labs.lab5.model;
 
 import lombok.AllArgsConstructor;
 

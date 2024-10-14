@@ -1,9 +1,12 @@
-package labs.lab4;
+package labs.lab5.model;
 
 
 import java.util.Objects;
+import java.util.UUID;
 
-public class Flat {
+public class Flat implements Comparable<Flat>{
+    private UUID id;
+
     private FlatType type;
     private String number;
     private Person owner;
@@ -14,6 +17,13 @@ public class Flat {
         this.owner = owner;
     }
 
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
     public FlatType getType() {
         return type;
     }
@@ -59,6 +69,11 @@ public class Flat {
                 ", number=" + number +
                 ", owner=" + owner +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Flat o) {
+        return number.compareTo(o.getNumber());
     }
 
     public static class FlatBuilder {

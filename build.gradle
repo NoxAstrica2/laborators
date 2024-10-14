@@ -44,6 +44,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mongodb/mongodb-driver-sync
     implementation 'org.mongodb:mongodb-driver-sync:5.2.0'
 
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    implementation 'com.zaxxer:HikariCP:6.0.0'
+
+    // https://mvnrepository.com/artifact/com.fasterxml.uuid/java-uuid-generator
+    implementation 'com.fasterxml.uuid:java-uuid-generator:5.1.0'
 
 
 }

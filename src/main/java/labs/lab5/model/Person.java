@@ -1,4 +1,4 @@
-package labs.lab4;
+package labs.lab5.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.*;
@@ -11,11 +11,14 @@ import lombok.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 public class Person {
+
+    private UUID id;
 
     @NotNull(message = "Name cannot be null")
     @Size(min = 1, max = 50, message
@@ -40,6 +43,14 @@ public class Person {
         this.birthDate = birthDate;
         this.notes = notes;
         this.flats = flats;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public UUID getId() {
+        return id;
     }
 
     @Override
