@@ -2,6 +2,7 @@ package labs.lab5.dao;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import labs.lab5.model.Flat;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,6 +10,9 @@ import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.Month;
+import java.time.Year;
 import java.util.Properties;
 
 public class DataSource {
@@ -103,6 +107,21 @@ public class DataSource {
                         foreign key (person_id) references persons (id)
                 );
                 """;
+
+        String createAccounting = """
+                create table if not exists accountings
+                  (
+                      id           uuid primary key,
+                      flat_id uuid not null,
+                      month int not null,
+                      year int not null,
+                      pay_time timestamp with time zone default now(),
+                      req_amount numeric(5, 2) not null,
+                      actual_amount numeric(5, 2) not null,
+                      foreign key (flat_id) references flats (id),
+                      unique (flat_id, month, year)
+                  );""";
+
         Connection conn = getConnection();
         try {
             conn.setAutoCommit(false);
@@ -110,6 +129,7 @@ public class DataSource {
             st.execute(createFlatType);
             st.execute(createPerson);
             st.execute(createFlat);
+            st.execute(createAccounting);
             conn.commit();
         } catch (SQLException e) {
             conn.rollback();
@@ -117,5 +137,4 @@ public class DataSource {
             conn.setAutoCommit(true);
         }
     }
-
 }
