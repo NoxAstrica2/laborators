@@ -1,8 +1,7 @@
-package labs.lab5.dao;
+package labs.lab6.dao;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import labs.lab5.model.Flat;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,9 +9,6 @@ import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.Year;
 import java.util.Properties;
 
 public class DataSource {
@@ -50,36 +46,8 @@ public class DataSource {
         return ds.getConnection();
     }
 
-
-    //    create table flat_types
-//            (
-//                    id          uuid primary key,
-//                    title       varchar,
-//                    room_amount int,
-//                    area        numeric(5, 2),
-//    plan_url    varchar
-//);
-//
-//    create table persons
-//            (
-//                    id         uuid primary key,
-//                    first_name varchar,
-//                    last_name  varchar,
-//                    pin        varchar unique,
-//                    birth_date date,
-//                    notes      text
-//            );
-//
-//    create table flats
-//            (
-//                    id           uuid primary key,
-//                    flat_type_id uuid,
-//                    number       varchar unique,
-//                    person_id    uuid,
-//                    foreign key (flat_type_id) references flat_types (id),
-//    foreign key (person_id) references persons (id)
-//            );
     public static void createTablesStructure() throws SQLException {
+        //(id serial primary key)
         String createFlatType = """
                 create table if not exists flat_types (id uuid primary key, title varchar, room_amount int, 
                 area numeric(5, 2), plan_url varchar);

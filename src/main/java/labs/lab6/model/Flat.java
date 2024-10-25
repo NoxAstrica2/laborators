@@ -1,4 +1,4 @@
-package labs.lab5.model;
+package labs.lab6.model;
 
 
 import java.util.Objects;

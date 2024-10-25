@@ -1,9 +1,9 @@
-package labs.lab5.dao;
+package labs.lab6.dao;
 
 import com.fasterxml.uuid.Generators;
-import labs.lab5.model.Flat;
-import labs.lab5.model.FlatType;
-import labs.lab5.model.Person;
+import labs.lab6.model.Flat;
+import labs.lab6.model.FlatType;
+import labs.lab6.model.Person;
 
 import java.sql.*;
 import java.util.*;
@@ -41,10 +41,19 @@ public class FlatDao {
     }
 
     public List<Flat> getAll() throws SQLException {
-        String getAll = String.format("select %1$s.id as flat_id,  %2$s.id as type_id, %3$s.id as type_id, * from %1$s join %2$s on %1$s.flat_type_id=%2$s.id join %3$s on %1$s.person_id=%3$s.id;", TABLE_NAME, FlatTypeDao.TABLE_NAME, PersonDao.TABLE_NAME);
+        String getAll = String.format("select %1$s.id as flat_id,  %2$s.id as type_id, %3$s.id as owner_id, * from %1$s join %2$s on %1$s.flat_type_id=%2$s.id join %3$s on %1$s.person_id=%3$s.id;", TABLE_NAME, FlatTypeDao.TABLE_NAME, PersonDao.TABLE_NAME);
 
         Statement st = connection.createStatement();
         ResultSet rs = st.executeQuery(getAll);
+        return getSortedByNumber(rs);
+    }
+
+    public List<Flat> getByOwnerPIN(String pin) throws SQLException {
+        String get = String.format("select %1$s.id as flat_id,  %2$s.id as type_id, %3$s.id as owner_id, * from %1$s join %2$s on %1$s.flat_type_id=%2$s.id join %3$s on %1$s.person_id=%3$s.id where pin = ?;", TABLE_NAME, FlatTypeDao.TABLE_NAME, PersonDao.TABLE_NAME);
+
+        PreparedStatement ps = connection.prepareStatement(get);
+        ps.setString(1, pin);
+        ResultSet rs = ps.executeQuery();
         return getSortedByNumber(rs);
     }
 

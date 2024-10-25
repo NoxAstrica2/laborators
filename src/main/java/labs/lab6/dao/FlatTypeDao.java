@@ -1,36 +1,47 @@
-package labs.lab5.dao;
+package labs.lab6.dao;
 
 import com.fasterxml.uuid.Generators;
-import labs.lab5.exception.EntityNotFoundException;
-import labs.lab5.model.FlatType;
-import labs.lab5.exception.UniqnessException;
+import labs.lab6.exception.EntityNotFoundException;
+import labs.lab6.model.FlatType;
+import labs.lab6.exception.UniqnessException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.*;
 
 public class FlatTypeDao {
+    private static final Logger logger = LogManager.getLogger(FlatTypeDao.class);
     private final Connection connection;
     static final String TABLE_NAME = "flat_types";
 
     public FlatTypeDao() {
         try {
             connection = DataSource.getConnection();
+            logger.debug("Connection to database was estgablished");
         } catch (SQLException e) {
+            logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }
 
     private boolean isExistsByTitle(String title) throws SQLException {
+        logger.debug("start method for checkin if flat type with title {} exists", title);
         try {
             getByTitle(title);
+            logger.debug("flat type with title {} exists", title);
             return true;
         } catch (EntityNotFoundException e) {
+            logger.warn("flat type with title {} doesn't exist", title);
             return false;
         }
     }
 
     public FlatType add(FlatType type) throws SQLException {
+        logger.debug("start method for add flat type {}", type);
+
         if (isExistsByTitle(type.title())) {
+            logger.error("Flat type with title = {} already exists", type.title());
             throw new UniqnessException("Flat type with title = " + type.title() + " already exists");
         }
         String insertFlatType = String.format("insert into %s (title, room_amount, area, plan_url, id) values (?,?,?,?,?);", TABLE_NAME);
@@ -43,13 +54,15 @@ public class FlatTypeDao {
             int rowsAffected = ps.executeUpdate();
 
             if (rowsAffected > 0) {
-
                 ResultSet generatedKeys = ps.getGeneratedKeys();
                 generatedKeys.next();
                 UUID id = UUID.fromString(generatedKeys.getString("id"));
+                logger.debug("Flat type {} was added", type);
                 return new FlatType(id, type.title(), type.roomAmount(), type.area(), type.planUrl());
-            } else
-                throw new IllegalArgumentException("Error while create flat type " + type);
+            } else {
+                logger.error("Error while create flat type {}", type);
+            }
+            throw new IllegalArgumentException("Error while create flat type " + type);
         }
     }
 
@@ -128,7 +141,6 @@ public class FlatTypeDao {
             return fromResultSet(rs);
         }
         throw new EntityNotFoundException("Flat type with id = " + id + " not found");
-
     }
 
     private FlatType fromResultSet(ResultSet rs) throws SQLException {

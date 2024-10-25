@@ -1,4 +1,4 @@
-package labs.lab5.exception;
+package labs.lab6.exception;
 
 public class UniqnessException extends RuntimeException {
 

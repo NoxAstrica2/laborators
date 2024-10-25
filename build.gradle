@@ -15,6 +15,7 @@ ext {
     jackson = "2.18.0"
     hibernate_validator = '8.0.1.Final'
     expressly = '5.0.0'
+    log4j2 = '2.24.1'
 }
 
 
@@ -49,6 +50,23 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.fasterxml.uuid/java-uuid-generator
     implementation 'com.fasterxml.uuid:java-uuid-generator:5.1.0'
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+    implementation "org.apache.logging.log4j:log4j-api:$log4j2"
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation "org.apache.logging.log4j:log4j-core:$log4j2"
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j
+    testImplementation 'org.slf4j:slf4j-reload4j:2.0.16'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation 'org.slf4j:slf4j-api:2.0.16'
+
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
+    testImplementation 'org.slf4j:slf4j-log4j12:2.0.16'
+
+
 
 
 }

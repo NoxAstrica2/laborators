@@ -1,8 +1,8 @@
-package labs.lab5.dao;
+package labs.lab6.dao;
 
 import com.fasterxml.uuid.Generators;
-import labs.lab5.exception.EntityNotFoundException;
-import labs.lab5.model.Person;
+import labs.lab6.exception.EntityNotFoundException;
+import labs.lab6.model.Person;
 
 import java.sql.*;
 import java.sql.Date;
@@ -11,7 +11,6 @@ import java.util.*;
 public class PersonDao {
     private final Connection connection;
     static final String TABLE_NAME = "persons";
-
     public PersonDao() {
         try {
             connection = DataSource.getConnection();
